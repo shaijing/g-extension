@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "灵的标签页",
+    "description": "干净快捷的新标签页：搜索、快捷方式、时钟、每日一句、壁纸",
+    "version": "1.0.0",
+    "icons": {
+        "16": "assets/icons/icon16.png"
+    },
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    },
+    "action": {
+        "default_title": "新标签页设置",
+        "default_popup": "options.html"
+    },
+    "permissions": [
+        "bookmarks",
+        "storage",
+        "favicon"
+    ],
+    "host_permissions": [
+        "https://source.unsplash.com/*"
+    ],
+    "background": {
+        "service_worker": "service_worker.js"
+    },
+    "options_page": "options.html"
+}
