@@ -1,4 +1,5 @@
 import './App.module.css';
+import BookMarkItem from './component/book-mark-item'
 import {
     createSignal, onMount,
     onCleanup,
@@ -74,7 +75,8 @@ function App() {
                 result.push({
                     title: node.title || node.url,
                     url: node.url,
-                    icon: `https://www.google.com/s2/favicons?sz=64&domain_url=${hostname}`,
+                    // icon: `https://www.google.com/s2/favicons?sz=64&domain_url=${hostname}`,
+                    icon: `https://icon.102417.xyz/favicon/${hostname}?minSize=86&autoPadding=true`,
                 });
             }
             // if (node.children) {
@@ -93,7 +95,7 @@ function App() {
                 console.log(bookmarks)
                 setLinks(bookmarks);
             }
-            
+
         });
     });
 
@@ -135,33 +137,21 @@ function App() {
         setRandomQuote();
     });
 
-
-    // // 壁纸（来自 Unsplash 随机源，无需密钥）
-    // function setBg() {
-    //     const w = Math.max(window.screen.width, 1280);
-    //     const h = Math.max(window.screen.height, 720);
-    //     const url = `https://source.unsplash.com/random/${w}x${h}/?landscape,wallpaper`;
-    //     const img = new Image();
-    //     img.onload = () => { document.getElementById('bg').style.backgroundImage = `url(${url})`; };
-    //     img.src = url;
-    // }
-    // // setBg();
     return (
-        <div >
-            <div id="bg">
-
-            </div>
-            <main class="container">
-                <header class="topbar">
-                    <div class="greeting" id="greeting">{clock().greeting}</div>
-                    <div class="clock" id="clock">{clock().clock}</div>
-                </header>
-
-
-                <section class="search">
-                    <form id="searchForm" onSubmit={handleSubmit}>
+        <div class="min-h-screen bg-[#f2f2f2] bg-center bg-cover bg-no-repeat blur-[var(--blur)]">
+            <section class="daily pt-[30px]">
+                <blockquote id="quote" class=" text-[#333]  text-center text-3xl">{quote()}</blockquote>
+            </section>
+            <header class="flex justify-between place-items-end mb-6 max-w-[880px] mx-auto px-6">
+                <div class="text-[28px] font-semibold" id="greeting">{clock().greeting}</div>
+                <div class="text-[56px] font-bold tracking-[1px]" id="clock">{clock().clock}</div>
+            </header>
+            <main class="max-w-screen mx-auto px-6">
+                <section class="search max-w-[1080px] mx-auto">
+                    <form id="searchForm" class="grid grid-cols-[1fr_auto_auto] gap-[10px]" onSubmit={handleSubmit}>
                         <input
                             id="searchInput"
+                            class="px-4 py-[14px] text-[18px] rounded-[16px] border border-[#ddd] outline-none"
                             type="text"
                             placeholder="搜索点什么…"
                             autocomplete="off"
@@ -171,6 +161,7 @@ function App() {
                         <select
                             id="engineSelect"
                             title="搜索引擎"
+                            class="rounded-[14px] border border-[#ddd] px-3 text-[16px]"
                             value={engine()}
                             onChange={(e) => setEngine(e.currentTarget.value)}
                         >
@@ -178,24 +169,20 @@ function App() {
                             <option value="https://www.bing.com/search?q=">Bing</option>
                             <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
                         </select>
-                        <button type="submit">搜索</button>
+                        <button type="submit" class="rounded-[14px] border border-[#ddd] px-3 text-[16px]">搜索</button>
                     </form>
                 </section>
-                <section class="quicklinks" id="quicklinks">
-                    {links().map((i) => (
-                        <a class="qitem" href={i.url} target="_self">
-                            <img src={i.icon} alt="" />
-                            {/* <span>{i.title}</span> */}
-                        </a>
+                <section class="grid grid-cols-12 gap-[6px] my-6 mx-auto place-items-center max-w-[1200px]" >
+                    {links().map((item) => (
+                        <BookMarkItem data={item} />
                     ))}
                 </section>
 
-                <section class="daily">
-                    <blockquote id="quote">{quote()}</blockquote>
-                </section>
+               
             </main>
-
-
+            {/* <footer class="text-[14px]">
+                <a href="options.html" target="_blank" rel="noopener">自定义</a>
+            </footer> */}
         </div>
     );
 }
