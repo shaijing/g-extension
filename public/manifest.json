@@ -19,7 +19,10 @@
         "favicon"
     ],
     "host_permissions": [
-        "https://source.unsplash.com/*"
+        "https://source.unsplash.com/*",
+        "https://icon.102417.xyz/*",
+        "https://v1.hitokoto.cn/*",
+        "https://api.xygeng.cn/*"
     ],
     "background": {
         "service_worker": "service_worker.js"
